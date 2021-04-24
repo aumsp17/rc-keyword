@@ -1,0 +1,39 @@
+<div fxLayout="column" fxLayoutAlign=" center" fxLayoutGap="16px">
+    <mat-radio-group
+        fxLayout="column"
+        fxLayoutGap="10px"
+        [formControl]="approvedControl"
+        >
+        <mat-radio-button [value]="true">
+            Approved
+        </mat-radio-button>
+        <mat-radio-button [value]="false">
+            Unapproved
+        </mat-radio-button>
+    </mat-radio-group>
+    <div fxLayout="column" class="mat-elevation-z8" style="width: 100%;">
+        <table *ngIf="keywords$ | async as keywords" mat-table [dataSource]="dataSource" fxFlex style="width: 100%;">
+            <ng-container matColumnDef="fullname_en">
+                <th mat-header-cell *matHeaderCellDef> Name (en) </th>
+                <td mat-cell *matCellDef="let element"> {{ element.fullname_en }} </td>
+            </ng-container>
+            <ng-container matColumnDef="fullname_th">
+                <th mat-header-cell *matHeaderCellDef> Name (th) </th>
+                <td mat-cell *matCellDef="let element" style="white-space: nowrap;"> {{ element.fullname_th }} </td>
+            </ng-container>
+            <ng-container matColumnDef="keywords">
+                <th mat-header-cell *matHeaderCellDef> Keywords </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-chip-list>
+                        <mat-chip *ngFor="let keywordId of element.keywordIds">
+                            {{ keywords[keywordId].keyword }}
+                        </mat-chip>
+                    </mat-chip-list>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hoverable clickable" (click)="rowClick(row.$id)"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons style="width:100%"></mat-paginator>
+    </div>
+</div>

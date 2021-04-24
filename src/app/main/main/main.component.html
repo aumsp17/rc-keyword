@@ -1,0 +1,12 @@
+<div fxLayout="column" style="height: 100%; width: 100%;">
+    <nav mat-tab-nav-bar>
+        <a mat-tab-link *ngFor="let link of links"
+           (click)="activeLink = link.path"
+           [routerLink]="link.path"
+           [active]="activeLink == link.path"> {{ link.title }} </a>
+    </nav>
+    <div style="padding: 1em;">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+

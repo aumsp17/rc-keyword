@@ -1,0 +1,48 @@
+<ng-container *ngIf="researcher$ | async as researcher">
+    <div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 style="margin: 0">{{ researcher.fullname_en }}</h2>
+        <button mat-icon-button mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    
+    <div
+      mat-dialog-content
+      fxLayout="column"
+      fxLayoutAlign=" center"
+      fxLayoutGap="1em"
+    >
+        <span class="mat-subheading-1"></span>
+        <mat-chip-list *ngIf="keywords$ | async as keywords">
+            <mat-chip *ngFor="let keywordId of researcher.keywordIds"
+                selectable
+                removable
+                (removed)="remove(keywordId)"
+            >
+                {{ keywords[keywordId].keyword }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+        </mat-chip-list>
+        <div fxLayout="row" fxLayoutGap="16px">
+            <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign=" center">
+                <mat-form-field>
+                    <mat-label>
+                        Edit Keyword
+                    </mat-label>
+                    <input matInput type="text" [formControl]="editKeywordControl">
+                </mat-form-field>
+                <button mat-flat-button color="primary" (click)="update()" [disabled]="!addKeywordControl.value || !chipList.selected">Update</button>
+            </div>
+            <mat-divider vertical></mat-divider>
+            <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign=" center">
+                <mat-form-field>
+                    <mat-label>
+                        Add Keyword
+                    </mat-label>
+                    <input matInput type="text" [formControl]="addKeywordControl">
+                </mat-form-field>
+                <button mat-flat-button color="primary" (click)="add()" [disabled]="!addKeywordControl.value">Add</button>
+            </div>
+        </div>
+    </div>
+</ng-container>

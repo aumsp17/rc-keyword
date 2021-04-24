@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "mdcu-rc-keywords"
+  },
+  "targets": {
+    "mdcu-research-club-database": {
+      "hosting": {
+        "r-c-keyword": [
+          "mdcu-research-club-database"
+        ]
+      }
+    }
+  }
+}
